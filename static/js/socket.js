@@ -60,17 +60,20 @@ var wsStart = function() {
         if (action == "hide_iframe") {
           $iframe.removeAttr('src');
 
-        } else if (action == "show_image") {
-          var image = tabletBehavior.image;
-          if (image) {
-            $iframe.attr('src', '/iframe?action=' + action + '&image=' + image);
+        } else if (action == "show_image") {var image = tabletBehavior.image;
+          if (image) { $iframe.attr('src', '/iframe?action=' + action + '&image=' + image); } 
+         else {$iframe.attr('src', '/iframe?action=' + action); }
+        }
+ 
+         else if (action == "show_image2") {
+           var image1 = tabletBehavior.image1;
+           var image2 = tabletBehavior.image2;
+          if (image1&&image2) { $iframe.attr('src', '/iframe?action=' + action + '&image1=' + image1 + "&image2=" + image2); }
+         else {$iframe.attr('src', '/iframe?action=' + action); }
+    
+        }
 
-          } else {
-            $iframe.attr('src', '/iframe?action=' + action);
-
-          }
-
-        } else if (action == "show_menu") {
+           else if (action == "show_menu") {
           var menu = tabletBehavior.menu;
           if (menu) {
             $iframe.attr('src', '/iframe?action=' + action + '&menu=' + menu);

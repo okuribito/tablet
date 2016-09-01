@@ -9,7 +9,7 @@ import tornado.options
 import tornado.web
 import tornado.websocket
 
-actions = ['show_image', 'show_menu', 'hide_iframe']  # list of selectable actions
+actions = ['show_image', "show_image2",'show_menu', 'hide_iframe']  # list of selectable actions
 
 
 class QueryHandler(tornado.web.RequestHandler):
@@ -20,21 +20,24 @@ class QueryHandler(tornado.web.RequestHandler):
         """Invoked from robot in arbitrary timing."""
 
         action = self.get_argument('action')
-        image = self.get_argument('image', default=None)
         menu = self.get_argument('menu', default=None)
+        image = self.get_argument('image', default=None)
+        image1 = self.get_argument('image1', default=None)
+        image2 = self.get_argument('image2', default=None)
 
         if action not in actions:
             self.finish({'status': 'NG'})
             return
 
         tablet_behavior = {'action': action, 'image': image,
+                           'image1': image1, 'image2': image2,
                            'menu': menu}
         ws_message = {'from': 'robot', 'to': 'tablet',
                       'tabletBehavior': tablet_behavior}
 
         SocketHandler.send_message(ws_message)
 
-        self.finish({'status': 'OK'})
+        self.finish({'stat': 'OK'})
 
 
 class TabletIndexHandler(tornado.web.RequestHandler):
@@ -58,6 +61,12 @@ class TabletIframeHandler(tornado.web.RequestHandler):
         if action == 'show_image':
             image_src = self.get_argument('image', default='default.png')
             self.render(action + '.html', image_src=image_src)
+
+        elif action == 'show_image2':
+            image1_src = self.get_argument('image1', default='default.png')
+            image2_src = self.get_argument('image2', default='default.png')
+            self.render(action + '.html', image1_src=image1_src, image2_src=image2_src)
+            print("it's done 1")
 
         elif action == 'show_menu':
             menu_id = self.get_argument('menu', default='default')
@@ -174,7 +183,7 @@ class Application(tornado.web.Application):
 def main():
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
-    http_server.listen(3000)
+    http_server.listen(80)
     tornado.ioloop.IOLoop.current().start()
 
 

@@ -10,10 +10,11 @@ image
 
 {% block content %}
   <div id='app'>
-    <div class='row'>
-      <div class="image">
-        <img src="{{ static_url('uploads/image/') if not image_src.startswith('http') else '' }}{{ image_src }}">
-      </div>
+    <div class='column'>
+      
+        <img src="{{ static_url('uploads/image/') if not image_src.startswith('http') else '' }}{{ image_src }}" align = left>
+        <img src="{{ static_url('uploads/image/') if not image_src.startswith('http') else '' }}{{ image_src }}" align = right>
+      
     </div>
   </div>
 {% end %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+image
+{% end %}
+
+{% block style_block %}
+  <link type="text/css" rel="stylesheet" href="{{ static_url('css/show_image.css') }}"/>
+{% end %}
+
+{% block content %}
+  <div id='app'>
+    <div class='row'>
+
+     
+      <div class="image">
+        <img src="{{ static_url('uploads/image/') if not image1_src.startswith('http') else '' }}{{ image1_src }}">
+
+       </div>
+       
+   <div class="image">
+ <img src="{{ static_url('uploads/image2/') if not image2_src.startswith('http') else '' }}{{ image2_src }}">
+      </div>
+   
+
+
+
+    </div>
+  </div>
+{% end %}
+
+{% block footer %}
+{% end %}
+
+{% block tail_script %}
+{% end %}
